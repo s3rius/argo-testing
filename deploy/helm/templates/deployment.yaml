@@ -34,11 +34,12 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: 
-            - python
-            - -m
-            - argo_testing
-            - server
-            - --port {{.Values.service.port}}
+            - "python"
+            - "-m"
+            - "argo_testing"
+            - "server"
+            - "--port"
+            - {{.Values.service.port | quote}}
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
