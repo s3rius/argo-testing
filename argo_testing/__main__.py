@@ -21,8 +21,8 @@ app.router.add_routes(router)
 
 
 @cli.command()
-def server():
-    web.run_app(app, host="0.0.0.0", port=8000, access_log=logging)
+def server(port: int = 8000, host: str = "0.0.0.0"):
+    web.run_app(app, host=host, port=port, access_log=logging)
 
 
 @cli.command()
