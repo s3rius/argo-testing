@@ -8,11 +8,6 @@ argo-cd:
   configs:
     params:
       server.insecure: true
-    repositories:
-      test-repo:
-        url: https://github.com/s3rius/argo-testing.git
-        name: my-test-project
-        type: git
 
   server:
     ingress:
@@ -39,7 +34,7 @@ argocd-apps:
             retry:
               limit: 2
           source:
-            repoURL: my-test-project
+            repoURL: https://github.com/s3rius/argo-testing.git
             targetRevision: HEAD
             path: deploy/helm/argo_testing/
             helm:
