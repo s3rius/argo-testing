@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "argo-testing"
-version = "1.0.9"
+version = "1.0.10"
 description = ""
 authors = ["Pavel Kirilin <win10@list.ru>"]
 readme = "README.md"
