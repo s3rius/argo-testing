@@ -9,15 +9,7 @@ metadata:
     argocd.argoproj.io/hook-delete-policy: HookSucceeded
 spec:
   ttlSecondsAfterFinished: 100
-  selector:
-    matchLabels:
-      {{- include "argo_test.selectorLabels" . | nindent 6 }}
-      resource_type: Job
   template:
-    metadata:
-      labels:
-        {{- include "argo_test.selectorLabels" . | nindent 8 }}
-        resource_type: Job
     spec:
       containers:
       - name: migrator
