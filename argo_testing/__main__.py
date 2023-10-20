@@ -29,7 +29,6 @@ def server(port: int = 8000, host: str = "0.0.0.0"):
 def migrate() -> None:
     print("Migrating")
     time.sleep(4)
-    exit(1)
     print("Migrated")
 
 
