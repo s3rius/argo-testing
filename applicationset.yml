@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: guestbook
+spec:
+  generators:
+    - list:
+        elements:
+          - env: dev
+  template:
+    metadata:
+      name: "argo-testing-{{env}}"
+    spec:
+      project: default
+      syncPolicy:
+        automated:
+          selfHeal: true
+      source:
+        repoURL: https://github.com/s3rius/argo-testing.git
+        targetRevision: HEAD
+        path: deploy/helm/
+        helm:
+          valueFiles:
+            - deploy/envs/{{env}}.yaml
+      destination:
+        name: "{{env}}"
+        namespace: "argo-testing-{{env}}"

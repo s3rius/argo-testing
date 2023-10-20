@@ -1,0 +1,28 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "argo_test.fullname" . }}-migrator
+  labels:
+    {{- include "argo_test.labels" . | nindent 4 }}
+spec:
+  ttlSecondsAfterFinished: 100
+  selector:
+    matchLabels:
+      {{- include "argo_test.selectorLabels" . | nindent 6 }}
+      resource_type: Job
+  template:
+    metadata:
+      labels:
+        {{- include "argo_test.selectorLabels" . | nindent 8 }}
+        resource_type: Job
+    spec:
+      containers:
+      - name: migrator
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        command: 
+          - python
+          - -m
+          - argo_testing
+          - migrate
+      restartPolicy: Never
