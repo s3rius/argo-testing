@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: guestbook
+  name: argo-testing
 spec:
   generators:
     - list:
@@ -21,7 +21,7 @@ spec:
         path: deploy/helm/
         helm:
           valueFiles:
-            - deploy/envs/{{env}}.yaml
+            - ../envs/{{env}}.yaml
       destination:
         name: "{{env}}"
         namespace: "argo-testing-{{env}}"
