@@ -1,0 +1,52 @@
+argo-cd:
+  enabled: true
+
+  crds:
+    install: true
+    keep: false
+
+  configs:
+    params:
+      server.insecure: true
+    repositories:
+      test-repo:
+        url: https://github.com/s3rius/argo-testing.git
+        name: my-test-project
+        type: git
+
+  server:
+    ingress:
+      enabled: true
+      hosts:
+        - argocd.localhost
+
+argocd-apps:
+  enabled: false
+  applicationsets:
+    - name: argo-testing
+      generators:
+        - clusters: {}
+      template:
+        metadata:
+          name: "argo-testing-{{nameNormalized}}"
+        spec:
+          project: default
+          syncPolicy:
+            automated:
+              selfHeal: true
+            syncOptions:
+              - CreateNamespace=true
+            retry:
+              limit: 2
+          source:
+            repoURL: my-test-project
+            targetRevision: HEAD
+            path: deploy/helm/argo_testing/
+            helm:
+              valueFiles:
+                - ../../envs/{{nameNormalized}}.yaml
+          destination:
+            name: "{{nameNormalized}}"
+            namespace: "argo-testing-{{nameNormalized}}"
+      syncPolicy:
+        preserveResourcesOnDeletion: false

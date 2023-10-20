@@ -1,0 +1,25 @@
+apiVersion: k3d.io/v1alpha4
+kind: Simple
+metadata:
+  name: default
+servers: 1
+image: rancher/k3s:v1.26.9-k3s1
+ports:
+  - port: 80:80 # HTTP ports mapping for cluster
+    nodeFilters:
+      - loadbalancer
+  - port: 443:443 # HTTPS ports mapping for cluster.
+    nodeFilters:
+      - loadbalancer
+  - port: "30086:30086" # InfluxDB port
+    nodeFilters:
+      - server:*
+  - port: "30017:30017" # Opentelemetry collector port
+    nodeFilters:
+      - server:*
+registries:
+  create:
+    name: registry.localhost # Registry for containers
+    host: "0.0.0.0" # Host for registry
+    hostPort: "5000" # Local port for registry
+
