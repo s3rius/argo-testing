@@ -17,6 +17,8 @@ spec:
           selfHeal: true
         syncOptions:
           - CreateNamespace=true
+        retry:
+          limit: 2
       source:
         repoURL: https://github.com/s3rius/argo-testing.git
         targetRevision: HEAD
