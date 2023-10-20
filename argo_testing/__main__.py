@@ -28,7 +28,6 @@ def server(port: int = 8000, host: str = "0.0.0.0"):
 @cli.command()
 def migrate() -> None:
     print("Migrating")
-    exit(1)
     time.sleep(4)
     print("Migrated")
 
