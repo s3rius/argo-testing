@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: registry.localhost:5000/argo-test
+  repository: k3d-registry.localhost:5000/argo-test
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "1.0.0"
