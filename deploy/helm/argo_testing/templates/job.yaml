@@ -20,4 +20,11 @@ spec:
           - -m
           - argo_testing
           - migrate
+        {{- with .Values.env }}
+        env:
+        {{- range $key, $val := . }}
+          - name: {{ $key }}
+            value: {{ $val | quote }}
+        {{- end }}
+        {{- end }}
       restartPolicy: Never
